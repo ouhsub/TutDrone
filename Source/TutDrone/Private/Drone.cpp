@@ -95,6 +95,7 @@ void ADrone::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	PlayerInputComponent->BindAxis(TEXT("Lift"), this, &ADrone::Lift);
 	PlayerInputComponent->BindAxis(TEXT("Forward"), this, &ADrone::Forward);
 	PlayerInputComponent->BindAxis(TEXT("Turn"), this, &ADrone::Turn);
+	PlayerInputComponent->BindAction(TEXT("Fire"), IE_Pressed, this, &ADrone::Fire);
 }
 
 void ADrone::Lift(float Input)
@@ -118,6 +119,11 @@ void ADrone::Forward(float Input)
 void ADrone::Turn(float Input)
 {
 	OutCollision->AddTorqueInRadians(-this->GetActorUpVector() * Input * TurnStrangth * GetWorld()->DeltaTimeSeconds);
+}
+
+void ADrone::Fire()
+{
+	GetWorld()->SpawnActor<AMissie>(Bullet, Mesh->GetSocketTransform(TEXT("Firing")));
 }
 
 void ADrone::RotatePaddle(float deltaTime)

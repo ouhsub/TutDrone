@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
+#include "Missie.h"
 #include "Drone.generated.h"
 
 UCLASS()
@@ -25,6 +26,8 @@ public:
 		class UStaticMeshComponent* Paddle3;
 	UPROPERTY(VisibleAnywhere)
 		class UStaticMeshComponent* Paddle4;
+	UPROPERTY(EditAnywhere)
+		TSubclassOf<AMissie> Bullet;
 
 
 	UPROPERTY(VisibleAnywhere)
@@ -56,6 +59,8 @@ private:
 		void Forward(float Input);
 	UFUNCTION()
 		void Turn(float Input);
+	UFUNCTION()
+		void Fire();
 
 	TArray<UStaticMeshComponent*> Paddles;
 	void RotatePaddle(float deltaTime);
